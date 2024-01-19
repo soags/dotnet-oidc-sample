@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1>認証済ページ</h1>
+  <div>
+    <a href="/login.html">ログインページへ</a>
+  </div>
+  <script>
+    window.onload = function () {      
+      if (!sessionStorage.getItem("accessToken")) {
+        alert("ログインしていません。")
+        window.location.href = "https://localhost:7161/login.html";
+      }
+    };
+  </script>
+</body>
+</html>

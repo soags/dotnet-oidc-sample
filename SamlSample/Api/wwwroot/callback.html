@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+</head>
+<body> 
+  <script>
+    window.onload = function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      if (code) {
+        fetchToken(code)
+      }
+    };
+
+    async function fetchToken(authCode) {
+      const tokenEndpoint = 'http://localhost:8080/realms/myrealm/protocol/openid-connect/token'
+      const clientId = 'test-oidc'
+      const keycloakClientSecret = 'idOvWHPbWEcnoqOs1TZaH5bOotFmjnPA'
+      const redirectUrl = 'https://localhost:7161/callback.html'
+
+      const basic = btoa(`${clientId}:${keycloakClientSecret}`)
+
+      const formData = new FormData();
+      formData.append('client_id', clientId);
+      formData.append('grant_type', 'authorization_code');
+      formData.append('code', authCode);
+      formData.append('redirect_uri', redirectUrl);
+
+      const response = await fetch(tokenEndpoint, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Basic ${basic}`,
+        },
+        mode: "cors",
+        body: formData
+      })
+
+      const result = await response.json()
+
+      sessionStorage.setItem("accessToken", result.access_token)
+      sessionStorage.setItem("refreshToken", result.refresh_token)
+
+      alert("ログインしました。")
+      window.location.href = "/page.html"
+    }
+  </script>
+</body>
+</html>

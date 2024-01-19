@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ログイン</title>
+</head>
+<body>
+  <h1>ログイン</h1>
+  <div>
+    <button id="loginOidc">OIDCログイン</button>
+  </div>
+  <div>
+    <a href="/index.html">認証ページ</a>
+  </div>
+  <script>
+    const authEndpoint = 'http://localhost:8080/realms/myrealm/protocol/openid-connect/auth'
+    const clientId = 'test-oidc'
+    const redirectURL = 'https://localhost:7161/callback.html'
+
+    document.getElementById('loginOidc').addEventListener('click', function () {
+      window.location.href = authEndpoint
+        + `?client_id=${clientId}`
+        + `&redirect_uri=${redirectURL}`
+        + '&response_type=code'
+        + '&scope=openid';
+    });
+  </script>
+</body>
+</html>

@@ -2,42 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title></title>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(e.target);
-        const json = JSON.stringify(Object.fromEntries(formData.entries()));
-
-        try {
-          const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: json
-          });
-
-          if (!response.ok) {
-            throw new Error('エラー');
-          }
-
-          const data = await response.json();
-          console.log('Success:', data);
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      });
-    });
-  </script>
+  <title>転送</title>
+  <meta http-equiv="refresh" content="0;url=./login.html">
 </head>
 <body>
-  <form>
-    <input name="username" placeholder="ユーザー名" value="test" />
-    <input name="password" placeholder="パスワード" value="password" />
-    <button type="submit">ログイン</button>
-  </form>  
 </body>
 </html>
